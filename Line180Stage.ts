@@ -31,7 +31,7 @@ class Line180Stage {
             this.ll180.startUpdating(() => {
                 this.animator.start(() => {
                     this.render()
-                    this.ll180.startUpdating(() => {
+                    this.ll180.update(() => {
                         this.animator.stop()
                     })
                 })
@@ -115,7 +115,7 @@ class Line180Node {
         const factor : number = 1 - 2 * index
         const gap : number = h / nodes
         context.save()
-        context.translate(w / 2, h * (this.i + 1))
+        context.translate(w / 2, gap * (this.i + 1))
         context.rotate(Math.PI * this.state.scale * factor)
         context.fillStyle = '#FF5722'
         context.fillRect(-gap/5, -gap, 2 * gap / 5, gap)
