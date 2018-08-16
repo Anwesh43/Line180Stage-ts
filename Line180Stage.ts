@@ -4,6 +4,8 @@ const nodes : number = 5
 class Line180Stage {
     canvas : HTMLCanvasElement = document.createElement('canvas')
     context : CanvasRenderingContext2D
+    ll180 : LinkedLine180 = new LinkedLine180()
+    animator : Animator = new Animator()
 
     constructor() {
         this.initCanvas()
@@ -21,11 +23,19 @@ class Line180Stage {
     render() {
         this.context.fillStyle = '#212121'
         this.context.fillRect(0, 0, w, h)
+        this.ll180.draw(this.context)
     }
 
     handleTap() {
         this.canvas.onmousedown = () => {
-
+            this.ll180.startUpdating(() => {
+                this.animator.start(() => {
+                    this.render()
+                    this.ll180.startUpdating(() => {
+                        this.animator.stop()
+                    })
+                })
+            })
         }
     }
 
